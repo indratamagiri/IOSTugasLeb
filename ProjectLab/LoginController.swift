@@ -11,39 +11,53 @@ import UIKit
 class LoginController: UIViewController {
     
     var orders = [Order]()
-
+    
     
     @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {
         
     }
     
-    @IBOutlet weak var menuBtn: UIButton!
+    @IBOutlet weak var menuLayout: UIView!
+    @IBOutlet weak var orderLayout: UIView!
     
     
-    @IBAction func menuPizza(_ sender: Any) {
+    @objc func menuAction(_ sender:UITapGestureRecognizer){
+        // do other task
+        print("Succses")
          performSegue(withIdentifier: "menuPizza", sender: self)
     }
     
-    @IBAction func orderUser(_ sender: Any) {
+    @objc func orderAction(_ sender:UITapGestureRecognizer){
+        // do other task
+        print("Succses")
          performSegue(withIdentifier: "orderUser", sender: self)
     }
     
-    @IBAction func editProfile(_ sender: Any) {
-        performSegue(withIdentifier: "profileEdit", sender: self)
+    @objc func checkAction(sender : UITapGestureRecognizer) {
+        // Do what you want
     }
     
    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       //addOrderTable()
-        //fetchData()
-        menuBtn.layer.cornerRadius = 4
+       load()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
+    }
+    
+    func load(){
+        let gestureMenu = UITapGestureRecognizer(target: self, action:  #selector(self.menuAction))
+        self.menuLayout.addGestureRecognizer(gestureMenu)
+        
+        let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.orderAction))
+        self.orderLayout.addGestureRecognizer(gesture)
+        
+        menuLayout.layer.cornerRadius = 6
+        orderLayout.layer.cornerRadius = 6
     }
     
     
