@@ -14,11 +14,11 @@ class RegisController: UIViewController, UITextFieldDelegate {
     var email_unic = ""
 
     @IBAction func cancle(_ sender: Any) {
-        let alert = UIAlertController(title: "Cancle", message: "Are You Sure To Cancle?", preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: "Cancel", message: "Are you sure want to cancel?", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "NO", style: .default, handler: nil))
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {
             action in self.performSegue(withIdentifier: "Cancle", sender: self)
         }))
-        alert.addAction(UIAlertAction(title: "NO", style: .default, handler: nil))
         
         self.present(alert, animated: true, completion: nil)
     }
@@ -29,29 +29,29 @@ class RegisController: UIViewController, UITextFieldDelegate {
         for data in datas {
             email_unic = data.email!
             if email.text == email_unic {
-                message = "Email have been used"
+                message = "Email has been used"
             }
         }
         if email.text == "" {
-            message = "Input Email"
+            message = "Input your email"
         }
         else if !validateEmail(enteredEmail: (email.text)!){
-            message = "Input Email Error"
+            message = "Please input correct email"
         }
         else if password.text == "" {
-            message = "Input Password"
+            message = "Input your password"
         }
         else if cnfPassword.text == "" {
-            message = "Input Confrim Password"
+            message = "Input your confirmation password"
         }
         else if password.text != cnfPassword.text! {
             message = "Password must be same"
         }
         else if !(address.text?.hasSuffix("Street"))!{
-            message = "Address must have street"
+            message = "Address must have Street"
         }else if telp.text == ""{
-            message = "telp must be filled"
-        }
+            message = "Input your phone number"
+        }//else if telp.text
          if message == ""{
             message = "Register success"
             let alert = UIAlertController(title: "Success", message: message, preferredStyle: UIAlertControllerStyle.alert)

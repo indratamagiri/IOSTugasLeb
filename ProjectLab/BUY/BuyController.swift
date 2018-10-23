@@ -25,6 +25,7 @@ class BuyController: UIViewController {
     @IBOutlet weak var pizName: UILabel!
     @IBOutlet weak var img: UIImageView!
     @IBOutlet weak var pricelbl: UILabel!
+    @IBOutlet weak var borderUI: UIView!
     
     
     
@@ -34,7 +35,7 @@ class BuyController: UIViewController {
             for order in orders {
                 if order.name ==  name && order.date_order == date && order.pizzaName == pizzaName{
                 context.delete(order)
-                    let alert = UIAlertController(title: "Buy Success", message: "Suc", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Buy Success!", message: "Your order(s) will be ready in minutes", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (_) in
                         self.performSegue(withIdentifier: "backMenu", sender: self)
                     }))
@@ -68,6 +69,7 @@ class BuyController: UIViewController {
         buyUI.layer.cornerRadius = 4
         editorder.layer.cornerRadius = 4
         img.layer.cornerRadius = 4
+        borderUI.layer.cornerRadius = 6
         img.image = UIImage(named: buyUser.pizzaName!)
         size.text = buyUser.size
         self.navigationItem.title = "Buy Order"

@@ -32,8 +32,8 @@ class EditController: UIViewController {
     @IBOutlet weak var imgUI: UIView!
     
     @IBAction func EditOrder(_ sender: Any) {
-        let alert = UIAlertController(title: "Change Order", message: "Are you sure to change order", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Cancle", style: .cancel, handler: nil))
+        let alert = UIAlertController(title: "Change Order", message: "Are you sure want to change your order?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (_) in
             self.editData()
             self.performSegue(withIdentifier: "OrderUser", sender: self)
@@ -42,7 +42,7 @@ class EditController: UIViewController {
     }
     
     @IBAction func qtyBtn(_ sender: Any) {
-        let alert = UIAlertController(title: "Jumlah Pesanan", message: "", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Order Total", message: "", preferredStyle: .alert)
         
         alert.addTextField { (textField) in
             textField.placeholder = String(self.editOrder.qty)
@@ -50,10 +50,10 @@ class EditController: UIViewController {
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
                 if  let textField:Int = Int((alert?.textFields![0].text)!) {
                     if (textField) <= 0 {
-                        self.alertOrder(msg: "Quantity must more that 0")
+                        self.alertOrder(msg: "Quantity must be more than 0")
                     }
                     else if textField >= 9 {
-                        self.alertOrder(msg: "Quantity less that 9")
+                        self.alertOrder(msg: "Quantity must be less than 9")
                     }
                     else {
                         self.qtyLbl.text = String(textField);
@@ -61,7 +61,7 @@ class EditController: UIViewController {
                         self.updatePrice()
                     }
                 }else {
-                    self.alertOrder(msg: "Quantity must numberic")
+                    self.alertOrder(msg: "Quantity must be in numeric form")
                 }
             }))
             self.present(alert, animated: true, completion: nil)
@@ -71,7 +71,7 @@ class EditController: UIViewController {
     
     
     @IBAction func SizeBtn(_ sender: Any) {
-        let actionSheetControllerIOS8: UIAlertController = UIAlertController(title: "Please select Size", message: "Option to select", preferredStyle: .actionSheet)
+        let actionSheetControllerIOS8: UIAlertController = UIAlertController(title: "Please select Pizza size", message: "Option to select", preferredStyle: .actionSheet)
         
         let smallActionButton = UIAlertAction(title: "Small", style: .default) { _ in
             self.sizeLbl.text = "Small"
@@ -103,7 +103,8 @@ class EditController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchData()
-       load()
+        load()
+        updatePrice()
     }
 
     
@@ -214,7 +215,7 @@ class EditController: UIViewController {
             editOrder.addTopping(addToping: 2.0)
             updatePrice();
         }else if !add && imgTopping == mus {
-            editOrder.toppingMush = true
+            editOrder.toppingMush = false
             editOrder.remTopping(remToping: 2.0)
             updatePrice();
         }
@@ -240,7 +241,7 @@ class EditController: UIViewController {
     }
     
     func alertOrder(msg: String){
-        let alert = UIAlertController(title: "Pesanan Ditolak", message: msg, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Your order is declined", message: msg, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
         

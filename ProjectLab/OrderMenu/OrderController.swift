@@ -42,19 +42,21 @@ class OrderController: UIViewController, UIActionSheetDelegate {
     
     
     @IBAction func orderBtn(_ sender: Any) {
-        let alert = UIAlertController(title: "NAME", message: "", preferredStyle: .alert)
+        let alert = UIAlertController(title: "", message: "Input your order name", preferredStyle: .alert)
         
         alert.addTextField { (textField) in
             textField.placeholder = "Input Name"
+            
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
             
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
              if  let textField:String = alert?.textFields![0].text {
                 if  let x:String = textField {
                     self.namaUser = x
                     if self.Sizelbl.text == "-" {
-                        self.alertOrder(msg: "Choose Size Pizza")
+                        self.alertOrder(msg: "Choose Pizza size")
                     } else if Int(self.Qtylbl.text!)! > 9 || Int(self.Qtylbl.text!)! <= 0{
-                        self.alertOrder(msg: "Input Quantity")
+                        self.alertOrder(msg: "Input Pizza quantity")
                     }
                     else {
                          self.insertData()
@@ -65,25 +67,25 @@ class OrderController: UIViewController, UIActionSheetDelegate {
                 }
                 }
             }))
-        alert.addAction(UIAlertAction(title: "Cancle", style: .default, handler: nil))
+       
         self.present(alert, animated: true, completion: nil)
         }
     }
     
     
     @IBAction func QtyBtn(_ sender: Any) {
-        let alert = UIAlertController(title: "Jumlah Pesanan", message: "", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Order Total", message: "", preferredStyle: .alert)
         
         alert.addTextField { (textField) in
-            textField.placeholder = "Input Jumlah Order"
+            textField.placeholder = "Input order total"
             
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
             if  let textField:Int = Int((alert?.textFields![0].text)!) {
                 if (textField) <= 0 {
-                    self.alertOrder(msg: "Quantity must more that 0")
+                    self.alertOrder(msg: "Quantity must be more that 0")
                 }
                 else if textField >= 9 {
-                    self.alertOrder(msg: "Quantity less that 9")
+                    self.alertOrder(msg: "Quantity must be less that 9")
                 }
                 else {
                     self.Qtylbl.text = String(textField);
@@ -91,7 +93,7 @@ class OrderController: UIViewController, UIActionSheetDelegate {
                     self.updatePrice();
                 }
             }else {
-                self.alertOrder(msg: "Quantity must numberic")
+                self.alertOrder(msg: "Quantity must be in numeric form")
             }
         }))
             self.present(alert, animated: true, completion: nil)
@@ -141,7 +143,7 @@ class OrderController: UIViewController, UIActionSheetDelegate {
     
     
     func alertOrder(msg: String){
-        let alert = UIAlertController(title: "Pesanan Ditolak", message: msg, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Order is declined", message: msg, preferredStyle: .alert)
          alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
         

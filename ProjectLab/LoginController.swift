@@ -33,9 +33,16 @@ class LoginController: UIViewController {
          performSegue(withIdentifier: "orderUser", sender: self)
     }
     
-    @objc func checkAction(sender : UITapGestureRecognizer) {
-        // Do what you want
+    @IBAction func logout(_ sender: Any) {
+        let alert = UIAlertController(title: "Logout", message: "Are you sure want to Logout?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (_) in
+            UserDefaults.standard.removeObject(forKey: "defaultUser")
+            self.performSegue(withIdentifier: "backLogin", sender: self)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+         self.present(alert, animated: true, completion: nil)
     }
+    
     
    
     

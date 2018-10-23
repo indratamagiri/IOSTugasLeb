@@ -81,5 +81,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.loginBorder.layer.borderColor = UIColor(red: 177/255, green: 255/255, blue: 176/255, alpha: 0.5).cgColor
         
     }
+    
+    @IBAction func prepareForLogin(segue: UIStoryboardSegue) {
+        
+    }
 
 }
